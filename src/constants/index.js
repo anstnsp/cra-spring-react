@@ -2,7 +2,7 @@ export const API_BASE_URL = "http://localhost:8080";
 export const ACCESS_TOKEN = "accessToken";
 
 // export const OAUTH2_REDIRECT_URI = "http://localhost:2222/oauth2/redirect";
-export const OAUTH2_REDIRECT_URI = "http://localhost:2222/oauth2";
+export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth2";
 // export const OAUTH2_REDIRECT_URI =
 //   "http://localhost:8080/login/oauth2/code/google";
 
