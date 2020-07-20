@@ -12,11 +12,13 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { login } from "../util/APIUtils";
+import { localLogin } from "../util/APIUtils";
 import { Redirect } from "react-router-dom";
-
+import { useAlert } from "react-alert";
 import {
   GOOGLE_AUTH_URL,
+  KAKAO_AUTH_URL,
+  NAVER_AUTH_URL,
   FACEBOOK_AUTH_URL,
   GITHUB_AUTH_URL,
   ACCESS_TOKEN,
@@ -44,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ authenticated, currentUser, location }) {
+export default function SignIn({ authenticated, currentUser, location,history , isLogged}) {
   const classes = useStyles();
   console.log(`signin페이지 authenticated값:${authenticated}`);
   console.log(`access_token:${ACCESS_TOKEN}`);
-
+  const alert = useAlert(); 
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: "",
@@ -66,20 +68,32 @@ export default function SignIn({ authenticated, currentUser, location }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(signinForm)
+    localLogin(signinForm)
       .then((response) => {
+        console.log(`response:${JSON.stringify(response)}`)
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-        alert.success("You're successfully logged in!");
-        this.props.history.push("/");
+        alert.success("로그인 되었습니다.", {
+          closeCopy : "확인",
+          onClose : () => {
+            window.location.href="/"
+          }
+        });
       })
       .catch((error) => {
-        console.log(error);
-        alert(
-          (error && error.message) ||
-            "Oops! Something went wrong. Please try again!"
-        );
+        if(error.status === 400) {
+          alert.error(`이메일을 형식에 맞게 입력해주세요.`, {
+            closeCopy: "확인"
+          })
+        } else if(error.status === 500) {
+          alert.error(error.message, {
+            closeCopy: "확인"
+          })
+        }
+        alert.error(error.message)
+        console.log(`error: ${JSON.stringify(error)}`);
+       // alert.error(error.message)
       });
-  };
+  }; //end handleSubmit
 
   if (authenticated) {
     return (
@@ -146,7 +160,10 @@ export default function SignIn({ authenticated, currentUser, location }) {
               <img src={googleLogo} alt="google" />
               구글 로그인
             </a>
-
+            {/* <a href={KAKAO_AUTH_URL}>
+              <img src={kakaoLogo} alt="kakao" />
+              카카오 로그인 
+            </a> */}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

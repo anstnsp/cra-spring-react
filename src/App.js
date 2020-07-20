@@ -5,9 +5,12 @@ import { Route, Switch } from "react-router-dom";
 import AppBar from "./components/common/Appbar";
 import Copyright from "./components/common/Copyright";
 import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 import PrivateRoute from "./components/common/PrivateRoute";
 import { getCurrentUser } from "./util/APIUtils";
 import { ACCESS_TOKEN } from "./constants";
+import { useAlert } from "react-alert"
+import { Redirect } from "react-router-dom"
 // 라우트로 설정한 컴포넌트는, 3가지의 props 를 전달받게 됩니다:여기서는 Home,과 About
 
 // history 이 객체를 통해 push, replace 를 통해 다른 경로로 이동하거나 앞 뒤 페이지로 전환 할 수 있습니다.
@@ -22,7 +25,12 @@ path prop을 통해서 매치시킬 경로를 지정하고 component prop을 통
 
 /* <Router> 컴포넌트는 위에 나온 <Route>와 <Link> 컴포넌트가 함께 유기적으로 동작하도록 묶어주는데 사용합니다.
 다시 말해, <Route>와 <Link> 컴포넌트는 DOM 트리 상에서 항상 <Router>를 공통 상위 컴포넌트로 가져야합니다. */
+
+
+
 const App = () => {
+  const alert = useAlert(); 
+
   const [authenticated, setAutenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     createdDate: "",
@@ -39,11 +47,13 @@ const App = () => {
     console.log(`컴포넌트 마운트됐따.`);
     loadCurrentlyLoggedInUser();
   }, []);
+  
+
 
   const loadCurrentlyLoggedInUser = () => {
     setLoading(true);
-
-    getCurrentUser()
+    if(localStorage.getItem(ACCESS_TOKEN) !== null) {
+      getCurrentUser()
       .then((response) => {
         console.log(JSON.stringify(response));
         setCurrentUser({
@@ -60,48 +70,53 @@ const App = () => {
       .catch((error) => {
         setLoading(false);
       });
+    }
+
   };
 
   const haddleLogout = () => {
     console.log(`로그아웃버튼 누름`);
     localStorage.removeItem(ACCESS_TOKEN);
-    console.log(localStorage.getItem(ACCESS_TOKEN));
+    console.log(`로컬스토리지 토큰값: ${localStorage.getItem(ACCESS_TOKEN)}`);
     setAutenticated(false);
     setCurrentUser({});
-    alert("로그아웃 되었습니다.");
+    alert.show("로그아웃 되었습니다.", {
+      closeCopy : "확인"
+    });
   };
 
   return (
     //header, left, body, right, bottom
-    <AppTemplate
-      header={
-        <AppBar
-          authenticated={authenticated}
-          currentUser={currentUser}
-          haddleLogout={haddleLogout}
-        />
-      }
-      body={
-        <Switch>
-          <Route exact path="/" component={Home} />
-          )} />
-          <Route path="/oauth2" component={OAuth2RedirectHandler} />
-          <Route
-            path="/signin"
-            authenticated={authenticated}
-            component={SignIn}
-          />
-          <PrivateRoute
-            path="/profile"
+      <AppTemplate
+        header={
+          <AppBar
             authenticated={authenticated}
             currentUser={currentUser}
-            component={Profile}
-          ></PrivateRoute>
-          <Route component={NotFound} />
-        </Switch>
-      }
-      bottom={<Copyright />}
-    />
+            haddleLogout={haddleLogout}
+          />
+        }
+        body={
+          <Switch>
+            <Route exact path="/" component={Home} />
+            )} />
+            <Route path="/oauth2" component={OAuth2RedirectHandler} />
+            <Route
+              path="/signin"
+              authenticated={authenticated}
+              component={SignIn}
+            />
+            <Route path="/signup" component={SignUp} />
+            <PrivateRoute
+              path="/profile"
+              authenticated={authenticated}
+              currentUser={currentUser}
+              component={Profile}
+            ></PrivateRoute>
+            <Route component={NotFound} />
+          </Switch>
+        }
+        bottom={<Copyright />}
+      />
   );
 };
 
