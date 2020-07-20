@@ -3,9 +3,19 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import { positions, Provider } from "react-alert";
+import AlertMUITemplate from "react-alert-template-mui";
+
+
+const options = {
+  positions: positions.BOTTOM_CENTER
+};
+
 ReactDOM.render(
   <BrowserRouter>
+   <Provider template={AlertMUITemplate} {...options}>
     <App />
+   </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );

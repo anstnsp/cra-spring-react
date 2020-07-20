@@ -61,7 +61,9 @@ export default function ButtonAppBar({
               <Link style={style} to="/signin">
                 <Button color="inherit">로그인</Button>
               </Link>
-              <Button color="inherit">회원가입</Button>
+              <Link style={style} to="/signup">
+                <Button color="inherit">회원가입</Button>
+              </Link>
             </div>
           ) : (
             <div>

@@ -37,9 +37,9 @@ export function getCurrentUser() {
   });
 }
 
-export function login(loginRequest) {
+export function localLogin(loginRequest) {
   return request({
-    url: API_BASE_URL + "/auth/login",
+    url: API_BASE_URL + "/auth/signin",
     method: "POST",
     body: JSON.stringify(loginRequest),
   });
