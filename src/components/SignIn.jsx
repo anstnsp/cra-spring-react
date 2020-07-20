@@ -24,7 +24,8 @@ import {
   ACCESS_TOKEN,
 } from "../constants";
 
-import googleLogo from "../google-logo.png";
+import googleLogo from "../img/google-logo.png";
+import kakaoLogo from "../img/kakao2.png";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,6 +47,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const oauthBtn = {
+  width : "100%",
+  heigth: "36px",
+  border: "1px solid transparent",
+  borderColor: "blue",
+  textAlign: "center",
+  textDecoration: "none",
+}
+const imgStyle = {
+  textAlign: "left",
+  heigth: "24px"
+}
 export default function SignIn({ authenticated, currentUser, location,history , isLogged}) {
   const classes = useStyles();
   console.log(`signin페이지 authenticated값:${authenticated}`);
@@ -80,6 +93,9 @@ export default function SignIn({ authenticated, currentUser, location,history , 
         });
       })
       .catch((error) => {
+        //401 권한없음 , 
+        //400 bad request(잘못된 요청 구문, 유효하지 않은 요청 메시지 프레이밍, 또는 변조된 요청 라우팅) 클라이언트는 요청을 수정하지 않고 동일한 형태로 다시 보내서는 안됩니다.
+        //500 Internal Server Error 서버 에러 응답 코드는 요청을 처리하는 과정에서 서버가 예상하지 못한 상황에 놓였다는 것을 나타냅니다.
         if(error.status === 400) {
           alert.error(`이메일을 형식에 맞게 입력해주세요.`, {
             closeCopy: "확인"
@@ -155,15 +171,50 @@ export default function SignIn({ authenticated, currentUser, location,history , 
             >
               로그인
             </Button>
+            <div>
+            <Button
+              href={GOOGLE_AUTH_URL}
+              fullWidth
+              variant="outlined"
+              color="primary"
+            
+            >
+              <img src={googleLogo} alt="google" style={imgStyle}/>구글 로그인
+            </Button>
+                        <Button
+              href={GOOGLE_AUTH_URL}
+              fullWidth
+              variant="outlined"
+              color="primary"
+           
+            >
+              <img src={kakaoLogo} alt="kakao" style={imgStyle}/>카카오 로그인
+            </Button>
+            <Button
+              href={GOOGLE_AUTH_URL}
+              fullWidth
+              variant="outlined"
+              color="primary"
+          
+            >
+              <img src={googleLogo} alt="naver" style={imgStyle}/>네이버 로그인
+            </Button>
+            </div>
 
-            <a href={GOOGLE_AUTH_URL}>
-              <img src={googleLogo} alt="google" />
-              구글 로그인
-            </a>
-            {/* <a href={KAKAO_AUTH_URL}>
-              <img src={kakaoLogo} alt="kakao" />
-              카카오 로그인 
-            </a> */}
+            {/* <div style={oauthBtn}>
+              <a href={GOOGLE_AUTH_URL}>
+                <img src={googleLogo} alt="google" style={{height:"26px"}}/>
+                구글 로그인
+              </a>
+            </div>
+
+            <div>
+              <a href={KAKAO_AUTH_URL}>
+                <img src={kakaoLogo} alt="kakao" />
+                카카오 로그인 
+              </a>
+            </div> */}
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
