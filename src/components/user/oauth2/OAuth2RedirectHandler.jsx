@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 
 const OAuth2RedirectHandler = ({ history, location, match }) => {
   const getUrlParameter = (name2) => {
+    console.log(`name2:${name2}`)
+    console.log(`name2:${JSON.stringify(name2)}`)
     console.log(location.search);
     const name = name2.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");

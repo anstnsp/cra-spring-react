@@ -19,13 +19,12 @@ import {
   GOOGLE_AUTH_URL,
   KAKAO_AUTH_URL,
   NAVER_AUTH_URL,
-  FACEBOOK_AUTH_URL,
-  GITHUB_AUTH_URL,
   ACCESS_TOKEN,
 } from "../constants";
 
 import googleLogo from "../img/google-logo.png";
 import kakaoLogo from "../img/kakao2.png";
+import naverLogo from "../img/naver-logo3.png"; 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -179,25 +178,23 @@ export default function SignIn({ authenticated, currentUser, location,history , 
               color="primary"
             
             >
-              <img src={googleLogo} alt="google" style={imgStyle}/>구글 로그인
+            <img src={googleLogo} alt="google" style={imgStyle}/>구글 로그인
             </Button>
-                        <Button
-              href={GOOGLE_AUTH_URL}
+            <Button
+              href={KAKAO_AUTH_URL}
               fullWidth
               variant="outlined"
               color="primary"
-           
             >
               <img src={kakaoLogo} alt="kakao" style={imgStyle}/>카카오 로그인
             </Button>
             <Button
-              href={GOOGLE_AUTH_URL}
+              href={NAVER_AUTH_URL}
               fullWidth
               variant="outlined"
               color="primary"
-          
             >
-              <img src={googleLogo} alt="naver" style={imgStyle}/>네이버 로그인
+              <img src={naverLogo} alt="naver" style={imgStyle}/>네이버 로그인
             </Button>
             </div>
 
