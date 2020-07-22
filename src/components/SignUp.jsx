@@ -163,16 +163,16 @@ export default function SignUp({location, match, history}) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signin" variant="body2">
                 회원이신가요? 로그인 하러가기
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
+      {/* <Box mt={5}>
       
-      </Box>
+      </Box> */}
     </Container>
   );
 }

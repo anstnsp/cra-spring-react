@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppTemplate from "./components/common/AppTemplate";
-import { Home, NotFound, OAuth2RedirectHandler, Profile } from "./routes";
+import { Home, NotFound, OAuth2RedirectHandler, Profile, Posts } from "./routes";
 import { Route, Switch } from "react-router-dom";
 import AppBar from "./components/common/Appbar";
 import Copyright from "./components/common/Copyright";
@@ -26,7 +26,7 @@ path prop을 통해서 매치시킬 경로를 지정하고 component prop을 통
 /* <Router> 컴포넌트는 위에 나온 <Route>와 <Link> 컴포넌트가 함께 유기적으로 동작하도록 묶어주는데 사용합니다.
 다시 말해, <Route>와 <Link> 컴포넌트는 DOM 트리 상에서 항상 <Router>를 공통 상위 컴포넌트로 가져야합니다. */
 
-
+export const UserState = React.createContext(null);
 
 const App = () => {
   const alert = useAlert(); 
@@ -87,6 +87,7 @@ const App = () => {
 
   return (
     //header, left, body, right, bottom
+    <UserState.Provider value={currentUser} >
       <AppTemplate
         header={
           <AppBar
@@ -98,7 +99,6 @@ const App = () => {
         body={
           <Switch>
             <Route exact path="/" component={Home} />
-            )} />
             <Route path="/oauth2" component={OAuth2RedirectHandler} />
             <Route
               path="/signin"
@@ -112,11 +112,16 @@ const App = () => {
               currentUser={currentUser}
               component={Profile}
             ></PrivateRoute>
+             <Route path="/posts"     
+               authenticated={authenticated}
+               currentUser={currentUser}
+               component={Posts} />
             <Route component={NotFound} />
           </Switch>
         }
         bottom={<Copyright />}
       />
+      </UserState.Provider>
   );
 };
 

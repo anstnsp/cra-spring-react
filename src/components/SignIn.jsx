@@ -198,20 +198,6 @@ export default function SignIn({ authenticated, currentUser, location,history , 
             </Button>
             </div>
 
-            {/* <div style={oauthBtn}>
-              <a href={GOOGLE_AUTH_URL}>
-                <img src={googleLogo} alt="google" style={{height:"26px"}}/>
-                구글 로그인
-              </a>
-            </div>
-
-            <div>
-              <a href={KAKAO_AUTH_URL}>
-                <img src={kakaoLogo} alt="kakao" />
-                카카오 로그인 
-              </a>
-            </div> */}
-
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -219,7 +205,7 @@ export default function SignIn({ authenticated, currentUser, location,history , 
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"회원가입"}
                 </Link>
               </Grid>
