@@ -54,7 +54,7 @@ export default function PostTable({
   rowsPerPage,
   rows,
   handleChangePage,
-  handleChangeRowsPerPage,
+  handleChangeRowsPerPage
 }) {
   const classes = useStyles();
   const style = {
@@ -64,7 +64,7 @@ export default function PostTable({
     //color: "white",
     textDecoration: "none", //<Link>의 밑줄제거
   };
-
+  
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -124,6 +124,7 @@ export default function PostTable({
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
       <PostInsertBtn />
+ 
     </Paper>
   );
 }

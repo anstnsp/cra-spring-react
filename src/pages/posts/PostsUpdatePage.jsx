@@ -148,6 +148,7 @@ const PostsUpdate = ({ history, location, match }) => {
         title={title}
         content={content}
       />
+      <div>
       <Button
         variant="outlined"
         color="primary"
@@ -162,6 +163,7 @@ const PostsUpdate = ({ history, location, match }) => {
       <Button variant="outlined" color="secondary" onClick={goBack}>
         취소
       </Button>
+      </div>
     </>
   );
 };

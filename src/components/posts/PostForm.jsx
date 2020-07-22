@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-
+import FormControl from '@material-ui/core/FormControl';
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const style = {
+  width : "1100px"
+}
 // value: 인풋의 내용
 // onCreate: 버튼이 클릭 될 때 실행 될 함수
 // onChange: 인풋 내용이 변경 될 때 실행되는 함수
@@ -27,7 +30,7 @@ const Form = ({
 
   return (
     <>
-      <form className={classes.root} noValidate autoComplete="off">
+      <FormControl className={classes.root}  noValidate autoComplete="off" >
         <div>
           {/* <div>작성자</div>
           <TextField
@@ -42,6 +45,7 @@ const Form = ({
           /> */}
           <div>제목</div>
           <TextField
+            style={style}
             required
             id="standard-required"
             label="Required"
@@ -53,6 +57,7 @@ const Form = ({
           />
           <div>내용</div>
           <TextField
+           style={style}
             id="outlined-multiline-static"
             label="내용"
             multiline
@@ -63,7 +68,7 @@ const Form = ({
             onChange={handleChange}
           />
         </div>
-      </form>
+      </FormControl>
 
     </>
   );

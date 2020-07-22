@@ -53,7 +53,7 @@ export default function ButtonAppBar({
               게시판
             </Link>
             <Link style={style} to="/posts">
-              잡담
+              쥔장소개
             </Link>
           </Typography>
           {!authenticated ? (
@@ -68,7 +68,7 @@ export default function ButtonAppBar({
           ) : (
             <div>
               <Link style={style} to="/profile">
-                프로필
+                내정보
               </Link>
               <Button color="inherit" onClick={haddleLogout}>
                 로그아웃

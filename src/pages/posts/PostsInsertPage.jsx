@@ -58,6 +58,7 @@ const PostsInsert = ({ history, location, match }) => {
       if (e.message === "Network Error") {
         alert("서버통신에러!!");
       } else {
+        console.log(e.message)
         alert("서버에러!");
       }
       console.log(`에러: ${e}`);
@@ -84,6 +85,7 @@ const PostsInsert = ({ history, location, match }) => {
         title={title}
         content={content}
       />
+      <div>
       <Button
         variant="outlined"
         color="primary"
@@ -95,6 +97,7 @@ const PostsInsert = ({ history, location, match }) => {
       <Button variant="outlined" color="secondary" onClick={goBack}>
         취소
       </Button>
+      </div>
     </>
   );
 };
